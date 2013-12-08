@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Booker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body ng-app="booker">
+      <div class="container">
+          <div class="page-header">
+              <h1>Booker <small>List bookings</small></h1>
+          </div> 
+          <div ng-controller="MainController">
+              <div class="row">
+                <span class="group-selector" groups="groups" active="activeGroup" style="display: block; margin-bottom:25px;"></span>
+              </div>
+              <div class="row">
+                <span class="booking" data="booking" ng-repeat="booking in bookings | filterBooking: activeGroup"></span>
+              </div>
+          </div>
+      </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/static/js/xdate.js"></script>
+    <script src="/static/js/angular.js"></script>
+    <script src="/static/js/main.js"></script>
+
+    <script type="text/ng-template" id="booking.html">
+          <div class="alert" ng-class="{ 'alert-success': data.status == 'available', 'alert-warning': data.status == 'standby' }">
+              <strong>{[{ data.name }]}</strong> on <strong>{[{ data.date|date:'EEE dd' }]}</strong> at <strong>{[{ data.date|date:'HH:mm' }]}</strong>
+          </div>
+    </script>
+
+    <script type="text/ng-template" id="group-selector.html">
+      <div class="btn-group btn-group-justified">
+        <a ng-repeat="group in groups" ng-click="changeActiveGroup(group.id)" ng-class="{ active: group.id == active }" class="btn btn-default" role="button">{[{ group.name }]}</a>
+      </div>
+    </script>
+
+  </body>
+</html>
