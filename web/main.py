@@ -8,22 +8,23 @@ import pymongo
 from flask import Flask, render_template
 from pymongo.uri_parser import parse_uri
 
+# Define environment variables
 DEBUG = os.environ.get('ENVIRONMENT_TYPE', 'debug') == 'debug'
 MONGO_URL = os.environ.get('MONGOHQ_URL', 'mongodb://localhost/booker')
 
+# Define persistence layer
 conn = pymongo.Connection(MONGO_URL)
 db = conn[parse_uri(MONGO_URL)['database']]
 persistence = db['bookings']
 
+# Define web server
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+# Define constants and helper functions
 EPOCH = 1000
-
 to_dict = lambda k: {'name': k['name'], 'status': k['status'], 'date': date_to_millis(k['datetime'])}
-
-def date_to_millis(d):
-    return time.mktime(d.timetuple()) * EPOCH
+date_to_millis = lambda d: time.mktime(d.timetuple()) * EPOCH
 
 @app.route('/bookings')
 def bookings():
