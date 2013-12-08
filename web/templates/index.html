@@ -20,10 +20,7 @@
           </div>
       </div>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="/static/js/xdate.js"></script>
-    <script src="/static/js/angular.js"></script>
-    <script src="/static/js/main.js"></script>
+    <script data-main="/static/js/init" src="/static/js/libs/require.js"></script>
 
     <script type="text/ng-template" id="booking.html">
           <div class="alert" ng-class="{ 'alert-success': data.status == 'available', 'alert-warning': data.status == 'standby' }">
