@@ -101,7 +101,7 @@ define([
        return { name: d.name, status: d.status, date: new Date(d.date) };
      }).sort(function(b1, b2) {
        if (b1.date == b2.date) return 0;
-       return b1.date > b2.date ? -1 : 1;
+       return b1.date > b2.date ? 1 : -1;
      });
    });
  });
