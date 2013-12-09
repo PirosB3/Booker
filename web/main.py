@@ -22,9 +22,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 
 # Define constants and helper functions
-EPOCH = 1000
-to_dict = lambda k: {'name': k['name'], 'status': k['status'], 'date': date_to_millis(k['datetime'])}
-date_to_millis = lambda d: time.mktime(d.timetuple()) * EPOCH
+to_dict = lambda k: {'name': k['name'], 'status': k['status'], 'date': k['datetime'].ctime()}
 
 @app.route('/bookings')
 def bookings():
