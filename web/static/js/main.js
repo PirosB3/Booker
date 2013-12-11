@@ -8,7 +8,7 @@ define([
      { name: "Next Week", id: "nextWeek" }
  ]
  
- app.factory('Bookings', function($http) {
+ app.factory('Bookings',['$http', function($http) {
    return {
      getBookings: $http.bind(this, {
        method: 'GET',
@@ -16,7 +16,7 @@ define([
        cache: true
      })
    };
- });
+ }]);
  
  app.factory('RangeUtils', function() {
  
@@ -75,7 +75,7 @@ define([
    };
  });
  
- app.filter('filterBooking', function(RangeUtils) {
+ app.filter('filterBooking', ['RangeUtils', function(RangeUtils) {
    return function(els, type) {
      var ranges = RangeUtils.getRangeForDate(type);
      var start = ranges[0];
@@ -88,9 +88,9 @@ define([
      });
  
    }
- });
+ }]);
  
- app.controller('MainController', function($scope, Bookings) {
+ app.controller('MainController', ['$scope', 'Bookings', function($scope, Bookings) {
  
    // Set the group selector and default active group
    $scope.groups = GROUP_NAMES;
@@ -104,12 +104,12 @@ define([
        return b1.date > b2.date ? 1 : -1;
      });
    });
- });
+ }]);
  
- app.config(function($interpolateProvider) {
+ app.config(['$interpolateProvider', function($interpolateProvider) {
    $interpolateProvider.startSymbol('{[{');
    $interpolateProvider.endSymbol('}]}');
- });
+ }]);
 
  return app;
 });
